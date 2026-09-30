@@ -1,30 +1,34 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 const WORK_ENTRIES = [
   {
     date: 'NOV 2025 — NOW',
     role: 'Operation Executive',
     company: 'Ecomobi PTE · Vietnam',
+    logo: { src: '/assets/logo-ecomobi.png', alt: 'Ecomobi logo', wide: true },
     bullets: [
-      'Monitor and analyze TikTok Ads performance for an FMCG brand, extracting data from TikTok GMV Max and Business Center to evaluate ROAS, CTR, GMV and other key metrics.',
-      'Consolidate large-scale advertising datasets into standardized performance reports and dashboards for continuous tracking.',
-      'Produce weekly and monthly campaign reports with the Content and Analytics teams to improve GMV and advertising effectiveness.',
+      <>Run TikTok Shop GMV Max performance for FMCG clients in three markets — <strong>Unilever</strong> (Vietnam, Singapore), <strong>NIVEA</strong> (Indonesia) and <strong>L’Oréal</strong> — tracking ROAS, CTR and GMV, and choosing which hero SKUs each month’s budget goes behind.</>,
+      'Build content-commerce plans from the numbers up, balancing booked creators — who bring 2.5–3x more NMV per video — with commission-only creators for volume: a mix that grows the NMV target 2.2x from July to October while CIR holds at 19%.',
+      'Track video and livestream sales for 10+ beauty and personal-care shops, from Kiehl’s and Kérastase to Florasis and Banila Co, in run-rate dashboards that flag mid-month which brands are behind — early enough to act.',
+      'Write weekly and monthly key-learning reports with the content and analytics teams: what won, what lost, and what to test next.',
     ],
   },
   {
     date: 'OCT 2024 — JUL 2025',
     role: 'Merchandising Trainee',
     company: 'Li & Fung Vietnam',
+    logo: { src: '/assets/logo-lifung.png', alt: 'Li & Fung logo' },
     bullets: [
-      'Managed pre-production coordination with 20+ vendors across Southeast Asia — sourcing, sampling, cost efficiency and on-time delivery for EU and U.S. buyers.',
+      <>Sourced and vetted ODM factories to develop and produce goods for <strong>Action</strong>, the Dutch non-food discount retailer and our largest account.</>,
+      'Coordinated pre-production with 20+ vendors across Southeast Asia — sampling, costing and on-time delivery for EU and U.S. buyers — and owned sample logistics end to end.',
       'Researched market trends and consumer insights to shape design concepts and product specifications.',
-      'Owned end-to-end sample logistics: documentation, submission tracking, and client follow-ups.',
     ],
   },
   {
     date: 'MAY 2023 — JUN 2024',
     role: 'Customer Service Assistant',
     company: 'RMIT Student Connect',
+    logo: { src: '/assets/logo-rmit.png', alt: 'RMIT University logo' },
     bullets: [
       'Handled Tier-1 customer service as primary point of contact, managing 20–30 inquiries daily across in-person and phone channels.',
       'Resolved complaints and escalated to line managers when necessary.',
@@ -55,7 +59,7 @@ const LEADERSHIP_ENTRIES = [
     title: 'Founder — PoKay Hanoi',
     bullets: [
       "My summer project — founded and ran an F&B startup end to end.",
-      'Owned inventory, supply chain and distribution.',
+      'Started it to find out whether a business student could turn a classroom idea into something strangers would pay for — not in a case study, but with my own money, suppliers I found myself and customers free to say no.',
       'Used data analysis to cut waste and improve operational efficiency.',
     ],
     ig: {
@@ -100,6 +104,15 @@ const LEADERSHIP_ENTRIES = [
 
 export default function Experience() {
   const [tab, setTab] = useState('work-exp')
+  const [leadSeen, setLeadSeen] = useState(false)   // hint + wiggle stop once Leadership has been opened
+  const tabsRef = useRef(null)
+  const startups = LEADERSHIP_ENTRIES.filter((e) => e.ig)
+
+  function openTab(id, scrollToTabs = false) {
+    setTab(id)
+    if (id === 'leadership') setLeadSeen(true)
+    if (scrollToTabs) tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
     <section id="experience">
@@ -110,21 +123,31 @@ export default function Experience() {
           <p>A running log of roles that shaped how I read numbers and manage cross-functional work.</p>
         </div>
 
-        <div className="exp-tabs reveal">
+        <div className="exp-tabs reveal" ref={tabsRef}>
           <button
             className={`exp-tab${tab === 'work-exp' ? ' active' : ''}`}
             type="button"
-            onClick={() => setTab('work-exp')}
+            onClick={() => openTab('work-exp')}
           >
             Work Experience
           </button>
           <button
-            className={`exp-tab${tab === 'leadership' ? ' active' : ''}`}
+            className={`exp-tab lead-tab${tab === 'leadership' ? ' active' : ''}${leadSeen ? '' : ' nudge'}`}
             type="button"
-            onClick={() => setTab('leadership')}
+            onClick={() => openTab('leadership')}
           >
             Leadership &amp; Startups
+            <span className="tab-count">{LEADERSHIP_ENTRIES.length}</span>
           </button>
+          {!leadSeen && (
+            <span className="tab-hint hand" aria-hidden="true">
+              <svg viewBox="0 0 64 34" width="46" height="25">
+                <path d="M60 26 C 42 34, 20 30, 8 12" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                <path d="M3 22 L8 11 L19 15" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              psst — {startups.length} startups in here
+            </span>
+          )}
         </div>
 
         <div className={`exp-panel${tab === 'work-exp' ? ' active' : ''}`}>
@@ -132,7 +155,17 @@ export default function Experience() {
             <div className="log-bar"><span></span><span></span><span></span>experience.log</div>
             {WORK_ENTRIES.map((entry) => (
               <div className="log-entry" key={entry.role}>
-                <div className="log-date">{entry.date}</div>
+                <div className="log-date">
+                  <span>{entry.date}</span>
+                  {entry.logo && (
+                    <img
+                      className={`co-logo${entry.logo.wide ? ' wide' : ''}`}
+                      src={entry.logo.src}
+                      alt={entry.logo.alt}
+                      loading="lazy"
+                    />
+                  )}
+                </div>
                 <div className="log-role">
                   <h3>{entry.role}</h3>
                   <span className="co">{entry.company}</span>
@@ -143,6 +176,20 @@ export default function Experience() {
               </div>
             ))}
           </div>
+
+          {/* end-of-log teaser: whoever finishes reading the day job gets pointed at the side projects */}
+          <button type="button" className="lead-teaser reveal" onClick={() => openTab('leadership', true)}>
+            <span className="lt-thumbs" aria-hidden="true">
+              {startups.map((s) => <img key={s.ig.handle} src={s.ig.image} alt="" loading="lazy" />)}
+            </span>
+            <span className="lt-text">
+              <span className="lt-kicker">Off the clock</span>
+              <span className="lt-title">
+                I ran two startups of my own, shipped 50 lanterns for charity and worked backstage at the Hanoi Opera House.
+              </span>
+            </span>
+            <span className="lt-go" aria-hidden="true">→</span>
+          </button>
         </div>
 
         <div className={`exp-panel${tab === 'leadership' ? ' active' : ''}`}>

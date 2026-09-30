@@ -8,6 +8,10 @@ export default function About() {
             <h2 style={{ marginTop: 14, fontSize: 'clamp(26px,3vw,34px)' }}>
               Two disciplines, one habit: making things legible.
             </h2>
+            <div className="face-swap">
+              <img className="face face-a" src="/assets/face-a.png" alt="" />
+              <img className="face face-b" src="/assets/face-b.png" alt="" />
+            </div>
           </div>
           <div className="reveal">
             <p>
@@ -29,7 +33,7 @@ export default function About() {
               and I went looking for that in an era where AI can build a working interface in a
               single second. I wanted to know what was happening underneath, not just prompt for
               it. So in 2026, I completed CyberSoft's <strong>Professional Front-End Developer</strong>{' '}
-              program, graduating with an Excellent grade, and now I build the kind of clean,
+              program, graduating with an Excellent grade, and combined with real life experience, now I build the kind of clean,
               responsive interfaces I always wished my dashboards looked like.
             </p>
             <div className="stat-grid">
