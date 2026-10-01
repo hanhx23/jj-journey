@@ -192,19 +192,6 @@ function DashboardMock() {
 }
 
 export default function CaseStudy() {
-  const [front, setFront] = useState('dash')   // which card sits on top in the before/after pair
-
-  const cardProps = (id, label) => ({
-    role: 'button',
-    tabIndex: 0,
-    'aria-pressed': front === id,
-    'aria-label': label,
-    onClick: () => setFront(id),
-    onKeyDown: (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setFront(id) }
-    },
-  })
-
   return (
     <section id="case-study">
       <div className="wrap">
@@ -225,13 +212,13 @@ export default function CaseStudy() {
           <div><dt>Client</dt><dd>NIVEA Indonesia, TikTok Shop (via Ecomobi)</dd></div>
         </dl>
 
-        <div className={`cs-visual reveal front-${front}`}>
-          <figure className="cs-card cs-sheet" data-cursor="before" {...cardProps('sheet', 'Show the original tracker sheet')}>
+        <div className="cs-visual reveal front-dash">
+          <figure className="cs-card cs-sheet" data-cursor="before">
             <div className="cs-bar"><span className="cs-dot g" />Daily Tracker · Google Sheets</div>
             <img src="/assets/case-sheet-blurred.jpg" alt="The original tracker sheet, blurred so no client numbers are readable" loading="lazy" />
             <figcaption>Before: one tab of the raw tracker</figcaption>
           </figure>
-          <figure className="cs-card cs-dash" data-cursor="after" {...cardProps('dash', 'Show the dashboard')}>
+          <figure className="cs-card cs-dash" data-cursor="after">
             <div className="cs-bar"><span className="cs-dot" /><span className="cs-dot" /><span className="cs-dot" />run-rate dashboard · live</div>
             <DashboardMock />
             <figcaption>After: the cockpit tab, layout shown with values redacted</figcaption>
