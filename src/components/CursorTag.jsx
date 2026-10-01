@@ -1,14 +1,22 @@
 import { useEffect, useRef } from 'react'
+import useMediaQuery from '../hooks/useMediaQuery.js'
 
-// Black dot (the cursor) + trailing "YOU" pill. Hidden over the header and on touch devices.
+const DEFAULT_LABEL = 'YOU'
+
+// Black dot (the cursor) + trailing pill. The pill reads "YOU", or the data-cursor text of
+// whatever you're pointing at (the hero stickers use this to say what a click does).
+// Mouse/trackpad only: on phones nothing is mounted at all, so iOS Safari doesn't have to
+// composite two invisible fixed, blend-mode layers on top of every scroll.
 export default function CursorTag() {
+  // live check: switching Chrome DevTools to a phone (or a laptop to tablet mode) removes it
+  const enabled = useMediaQuery('(hover: hover) and (pointer: fine)')
   const dot = useRef(null)
   const tag = useRef(null)
 
   useEffect(() => {
-    if (window.matchMedia('(hover: none)').matches) return
+    if (!enabled) return undefined
     const root = document.documentElement
-    let x = 0, y = 0, cx = 0, cy = 0, raf = 0, shown = false, first = true
+    let x = 0, y = 0, cx = 0, cy = 0, raf = 0, shown = false, first = true, label = DEFAULT_LABEL
 
     const show = (v) => {
       if (v === shown) return
@@ -27,7 +35,15 @@ export default function CursorTag() {
       x = e.clientX; y = e.clientY
       if (first) { cx = x; cy = y; first = false }
       dot.current.style.transform = `translate3d(${x - 6}px, ${y - 6}px, 0)`
-      show(!(e.target.closest && e.target.closest('header')))
+      const t = e.target.closest ? e.target : null
+      show(!(t && t.closest('header')))
+      const hint = t && t.closest('[data-cursor]')
+      const next = hint ? hint.dataset.cursor : DEFAULT_LABEL
+      if (next !== label) {
+        label = next
+        tag.current.textContent = next
+        tag.current.classList.toggle('hint', next !== DEFAULT_LABEL)
+      }
       if (!raf) raf = requestAnimationFrame(tick)
     }
     const onLeave = () => show(false)
@@ -40,12 +56,14 @@ export default function CursorTag() {
       cancelAnimationFrame(raf)
       root.classList.remove('cursor-hide')
     }
-  }, [])
+  }, [enabled])
+
+  if (!enabled) return null
 
   return (
     <>
       <div ref={dot} className="cursor-dot" aria-hidden="true"></div>
-      <div ref={tag} className="cursor-tag" aria-hidden="true">YOU</div>
+      <div ref={tag} className="cursor-tag" aria-hidden="true">{DEFAULT_LABEL}</div>
     </>
   )
 }

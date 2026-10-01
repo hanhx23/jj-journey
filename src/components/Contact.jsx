@@ -40,12 +40,16 @@ export default function Contact() {
                 {copied ? 'Copied!' : 'Copy'}
               </button>
             </div>
+            <a href="/assets/Do-My-Hanh-CV.pdf" download="Do-My-Hanh-CV.pdf">
+              <span><span className="k">CV</span>Download PDF ↓</span>
+            </a>
             <a href="tel:+84912762003">
               <span><span className="k">Phone</span>+84 912 762 003</span>
             </a>
-            <a href="#">
+            {/* plain text, not a link: href="#" used to throw visitors back to the top of the page */}
+            <div className="contact-static">
               <span><span className="k">Location</span>Ho Chi Minh City, Vietnam</span>
-            </a>
+            </div>
           </div>
         </div>
       </div>

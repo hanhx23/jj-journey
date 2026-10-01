@@ -26,7 +26,7 @@ export default function Projects() {
     <section id="work">
       <div className="wrap">
         <div className="sec-head reveal">
-          <div className="eyebrow">03 — projects</div>
+          <div className="eyebrow">04 — projects</div>
           <h2>Front-end builds.</h2>
           <p>Capstone projects from my CyberSoft training — built to practice responsive layout, component structure and clean interaction design.</p>
         </div>

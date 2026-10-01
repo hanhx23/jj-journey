@@ -15,6 +15,7 @@ const DEV_SKILLS = [
   'Responsive Web Design',
   'Git & GitHub',
   'Astro & Tailwind CSS',
+  'Apps Script',
 ]
 
 export default function Skills() {
@@ -22,7 +23,7 @@ export default function Skills() {
     <section id="skills">
       <div className="wrap">
         <div className="sec-head reveal">
-          <div className="eyebrow">04 — skills</div>
+          <div className="eyebrow">05 — skills</div>
           <h2>What I bring to a team.</h2>
         </div>
 

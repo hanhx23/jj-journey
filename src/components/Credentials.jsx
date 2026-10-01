@@ -3,7 +3,7 @@ export default function Credentials() {
     <section id="credentials">
       <div className="wrap">
         <div className="sec-head reveal">
-          <div className="eyebrow">05 — credentials</div>
+          <div className="eyebrow">06 — credentials</div>
           <h2>Certification &amp; education.</h2>
         </div>
 

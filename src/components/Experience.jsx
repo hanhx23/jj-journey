@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react'
 
+const CV_URL = '/assets/Do-My-Hanh-CV.pdf'   // put your PDF at public/assets/Do-My-Hanh-CV.pdf
+
 const WORK_ENTRIES = [
   {
     date: 'NOV 2025 — NOW',
@@ -148,6 +150,11 @@ export default function Experience() {
               psst — {startups.length} startups in here
             </span>
           )}
+          {/* right end of the tab row on desktop, its own line on phones */}
+          <a href={CV_URL} className="btn btn-primary btn-cv exp-cv" download="Do-My-Hanh-CV.pdf" data-cursor="download">
+            Download CV
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0-4-4m4 4 4-4M4 16h12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </a>
         </div>
 
         <div className={`exp-panel${tab === 'work-exp' ? ' active' : ''}`}>
