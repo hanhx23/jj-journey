@@ -1,3 +1,5 @@
+import CertificateViewer from './CertificateViewer.jsx'
+
 export default function Credentials() {
   return (
     <section id="credentials">
@@ -22,6 +24,12 @@ export default function Credentials() {
               <div><div className="m-lbl">Issued</div><div className="m-val">22 Jun 2026</div></div>
               <div><div className="m-lbl">Certificate No.</div><div className="m-val">FE/2026/20263149</div></div>
             </div>
+            <div className="cred-actions">
+              <CertificateViewer
+                src="/assets/certificates/certification_cybersoft.pdf"
+                title="Professional Front-End Developer"
+              />
+            </div>
           </div>
 
           <div className="cred-card edu-card reveal">
@@ -43,6 +51,13 @@ export default function Credentials() {
                 (2024–2025)
               </li>
             </ul>
+            <div className="cred-actions">
+              <CertificateViewer
+                src="/assets/certificates/Testamur - Bachelor of Business (Management).pdf"
+                title="Bachelor of Business (Management) — RMIT University"
+                ratio="210 / 297"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -1450,3 +1450,48 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible{outline:3px
   .cs-loop path{stroke-dashoffset:0; transition:none !important;}
   .cs-spark{scale:1; animation:none !important;}
 }
+
+/* ===== certificate viewer (Credentials → Professional Front-End Developer) ===== */
+.cred-actions{margin-top:26px;}
+
+/* trigger: same hard-shadow pill language as .btn, sized for a card */
+.cert-trigger{display:inline-flex; align-items:center; gap:8px; padding:10px 18px; font-family:var(--font-body); font-size:14px; font-weight:600; line-height:1.2; color:var(--text); background:#fff; border:2px solid var(--text); border-radius:999px; box-shadow:3px 3px 0 var(--text); cursor:pointer; transition:transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease, background .2s ease;}
+.cert-trigger:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--text); background:var(--lilac);}
+.cert-trigger:active{transform:translate(1px,1px); box-shadow:1px 1px 0 var(--text);}
+.cert-trigger svg{width:17px; height:17px; flex:none;}
+.cert-trigger:focus-visible,.cert-dialog :focus-visible{outline:3px solid var(--accent-ink); outline-offset:3px;}
+
+/* popup open: lock the page behind it, and swap the custom cursor for the normal one
+   (the custom dot sits under the popup layer, so without this there'd be no cursor at all) */
+html.cert-lock{overflow:hidden;}
+html.cert-lock, html.cert-lock *{cursor:auto !important;}
+html.cert-lock .cert-dialog a, html.cert-lock .cert-dialog button{cursor:pointer !important;}
+html.cert-lock .cursor-dot, html.cert-lock .cursor-tag{opacity:0 !important;}
+
+/* margin:auto puts it back in the centre: the global *{margin:0} reset would pin it top-left */
+.cert-dialog{margin:auto; width:min(1000px, 100% - 40px); max-width:none; max-height:calc(100dvh - 40px); padding:0; border:2px solid var(--text); border-radius:20px; background:#fff; color:var(--text); box-shadow:8px 8px 0 var(--gold); overflow:hidden;}
+.cert-dialog::backdrop{background:rgba(17,17,17,.6); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);}
+.cert-dialog[open]{animation:cert-in .22s cubic-bezier(.34,1.56,.64,1);}
+@keyframes cert-in{from{opacity:0; transform:translateY(10px) scale(.98);} to{opacity:1; transform:none;}}
+
+.cert-dialog__panel{display:flex; flex-direction:column; max-height:inherit;}
+.cert-dialog__bar{display:flex; align-items:center; gap:14px; padding:12px 12px 12px 22px; border-bottom:2px solid var(--text);}
+.cert-dialog__title{flex:1; min-width:0; font-family:var(--font-display); font-size:17px; font-weight:700; letter-spacing:-0.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.cert-dialog__actions{display:flex; align-items:center; gap:8px; flex:none;}
+.cert-dialog__actions a{padding:6px 13px; font-size:13px; font-weight:600; color:var(--text); background:#fff; border:1.5px solid var(--text); border-radius:999px; transition:background .2s ease;}
+.cert-dialog__actions a:hover{background:var(--lilac);}
+.cert-dialog__close{display:grid; place-items:center; width:38px; height:38px; color:var(--text); background:#fff; border:2px solid var(--text); border-radius:50%; transition:background .2s ease;}
+.cert-dialog__close:hover{background:var(--peach);}
+.cert-dialog__close svg{width:18px; height:18px;}
+
+.cert-dialog__frame{display:block; width:100%; aspect-ratio:var(--cert-ratio, 297 / 210); max-height:calc(100dvh - 110px); border:0; background:var(--bg-panel-alt);}
+
+/* phones: full screen, no frame chrome */
+@media (max-width:640px){
+  .cert-dialog{width:100%; height:100dvh; max-height:none; border:0; border-radius:0; box-shadow:none;}
+  .cert-dialog__panel{height:100%;}
+  .cert-dialog__bar{padding:10px 10px 10px 16px;}
+  .cert-dialog__frame{flex:1; aspect-ratio:auto; max-height:none;}
+}
+@media (max-width:420px){ .cert-dialog__link-tab{display:none;} }
+@media (prefers-reduced-motion:reduce){ .cert-dialog[open]{animation:none;} .cert-trigger{transition:background .2s ease;} }
