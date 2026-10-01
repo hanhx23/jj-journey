@@ -40,7 +40,7 @@ export default function Contact() {
                 {copied ? 'Copied!' : 'Copy'}
               </button>
             </div>
-            <a href="/assets/Do-My-Hanh-CV.pdf" download="Do-My-Hanh-CV.pdf">
+            <a href="/assets/Do%20My%20Hanh%20-%20CV.pdf" download="Do-My-Hanh-CV.pdf">
               <span><span className="k">CV</span>Download PDF ↓</span>
             </a>
             <a href="tel:+84912762003">

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-const CV_URL = '/assets/Do-My-Hanh-CV.pdf'   // put your PDF at public/assets/Do-My-Hanh-CV.pdf
+const CV_URL = '/assets/Do%20My%20Hanh%20-%20CV.pdf'
 
 const WORK_ENTRIES = [
   {
